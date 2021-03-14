@@ -26,8 +26,8 @@
 + 추후 예외처리를 용이하도록 RestControllerAdviser 사용하여 전역 예외처리
 
 ### 설치 및 빌드방법
-+ 1. git clone https://github.com/honor2030/UrlShort.git
-+ 2. cd UrlShort 로 이동
-+ 3. ./gradlew bootjar 실행
-+ 4. cd ./build/libs/ 로 이동
-+ 5. java -jar urlshort-0.0.1-SNAPSHOT.jar 로 실행
++1. git clone https://github.com/honor2030/UrlShort.git
++2. cd UrlShort 로 이동
++3. ./gradlew bootjar 실행
++4. cd ./build/libs/ 로 이동
++5. java -jar urlshort-0.0.1-SNAPSHOT.jar 로 실행
