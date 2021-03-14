@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Url Short</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div>
+    변경할 URL을 입력하세요<p></p><input id="url_input" text="" />
+    <input type="button" onclick="convert();" value="변경"/>
+    <input id="url_out" text=""/><p></p>
+    이동할 짧은 URL을 입력하세요<p></p><input id="url_short_input" text="" />
+    <input type="button" onclick="redirect();" value="이동"/>
+</div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    function convert(){
+        let data = $("#url_input").val();
+
+        let urlForm={
+            url:data
+        }
+
+        if(data != null){
+
+            $.ajax({
+                type: "POST",
+                url: "/url",
+
+                data: JSON.stringify(urlForm),
+                contentType: 'application/json',
+                success: function(data) {
+                    console.log(data);
+                    urlForm = data;
+                    $("#url_out").val(urlForm.url);
+                    $("#url_short_input").val(urlForm.url);
+                },
+                error: function (request, status, error) {
+                    console.error(error);
+                }
+            });
+
+        }
+    };
+
+    function redirect(){
+        let data = $("#url_short_input").val();
+
+        let short_url = new URL(data).pathname;
+
+        let urlForm={
+            url:data
+        }
+
+        if(data != null){
+
+            $.ajax({
+                type: "GET",
+                url: "/url/" + short_url,
+
+                success: function(data) {
+
+                    urlForm = data;
+                    console.log(urlForm.url);
+
+                    location.href = urlForm.url;
+
+                },
+                error: function onError (error) {
+                    console.error(error);
+                }
+            });
+
+        }
+    }
+</script>
